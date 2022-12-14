@@ -1,0 +1,38 @@
+button {
+  margin: 5px;
+  letter-spacing: 0.1em;
+  padding: 10px 25px;
+}
+
+.clickable:active {
+  box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.14);
+  transform: translateY(1px);
+}
+
+.backlight {
+  position: relative;
+  border-radius: 5px;
+  font-weight: 500;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, transparent, var(--blue-color) 45%, var(--blue-color) 55%, transparent 100%);
+    z-index: 9999;
+    transform: translateX(calc(var(--x) * 1px)) translateX(-50%);
+
+    opacity: 0;
+    transition: opacity 0.3s linear;
+  }
+
+  &:hover:after {
+    opacity: 0.4;
+  }
+}

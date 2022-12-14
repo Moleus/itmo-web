@@ -7,8 +7,7 @@ import jakarta.enterprise.inject.Produces;
 
 @ApplicationScoped
 public class GraphBootstrap {
-    @Produces
-    @ApplicationScoped
+    @Produces @ApplicationScoped
     public Graph getShapesGraph() {
         Graph graph = new Graph();
         graph.addShape(new Circle(Quadrant.FIRST, 0.5f));

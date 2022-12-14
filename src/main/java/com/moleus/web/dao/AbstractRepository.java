@@ -2,6 +2,7 @@ package com.moleus.web.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -15,16 +16,20 @@ public abstract class AbstractRepository<T> implements GenericDao<T> {
     protected EntityManager entityManager;
     protected Class<T> clazz;
 
-    public AbstractRepository(Class<T> clazz) {
+    protected AbstractRepository(Class<T> clazz) {
         this.clazz = clazz;
     }
 
     @Override
     @Transactional
-    public T save(T entity) {
-        entityManager.persist(entity);
-        entityManager.flush();
-        return entity;
+    public T save(T entity) throws EntityAlreadyExistsException {
+        try {
+            entityManager.persist(entity);
+            entityManager.flush();
+            return entity;
+        } catch (PersistenceException e) {
+            throw new EntityAlreadyExistsException();
+        }
     }
 
     protected <V> CriteriaDelete<T> criteriaDeleteEqual(V value, SingularAttribute<T, V> attribute) {

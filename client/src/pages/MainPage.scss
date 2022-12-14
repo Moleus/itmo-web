@@ -1,0 +1,57 @@
+@import "../styles/elements";
+
+.main-page {
+  @extend .page;
+}
+
+@media (max-width: 815px) {
+  .main-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 1fr 0.5fr 1fr;
+    grid-template-areas:
+        "header"
+        "axis"
+        "inputValues"
+        "table";
+  }
+}
+
+@media (min-width: 815px) {
+  .main-page {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 0.1fr 1.2fr 2fr;
+    grid-template-areas:
+        "header header"
+        "axis inputValues"
+        "table table";
+  }
+}
+
+@media (min-width: 1266px) {
+  .main-page {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1.2fr 1fr 1fr;
+    grid-template-areas:
+        "header     header  header"
+        "axis        table table"
+        "inputValues table table"
+        ".           table table";
+  }
+}
+
+#canvas-container {
+  grid-area: axis;
+  display: flex;
+  place-content: center;
+}
+
+.results-table {
+  min-height: 0;
+  min-width: 0;
+  grid-area: table;
+}
+
+#r-container {
+  grid-area: r-container;
+  display: flex;
+}
